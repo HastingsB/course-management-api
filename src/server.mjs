@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
+import authRoutes from "./routes/authRoutes.mjs";
 
 dotenv.config();
 
@@ -8,10 +9,10 @@ const app = express();
 
 app.use(express.json());
 
-// Connect database
 connectDB();
 
-// Test route
+app.use("/api/auth", authRoutes);
+
 app.get("/", (req, res) => {
     res.send("Course Management API is running...");
 });
