@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
 import authRoutes from "./routes/authRoutes.mjs";
 import userRoutes from "./routes/userRoutes.mjs";
+import courseRoutes from "./routes/courseRoutes.mjs";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ connectDB();
 app.use("/api/auth", authRoutes);
 
 app.use("/api/users", userRoutes);
+
+app.use("/api/courses", courseRoutes);
 
 app.get("/", (req, res) => {
     res.send("Course Management API is running...");
