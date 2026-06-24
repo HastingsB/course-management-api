@@ -1,5 +1,9 @@
 import express from "express";
-import { getProfile, adminDashboard } from "../controllers/userController.mjs";
+import {
+    getProfile,
+    adminDashboard,
+    approveTeacher
+} from "../controllers/userController.mjs";
 import { protect, authorize } from "../middleware/authMiddleware.mjs";
 
 const router = express.Router();
@@ -11,6 +15,13 @@ router.get(
     protect,
     authorize("admin"),
     adminDashboard
+);
+
+router.put(
+    "/approve-teacher/:id",
+    protect,
+    authorize("admin"),
+    approveTeacher
 );
 
 export default router;
