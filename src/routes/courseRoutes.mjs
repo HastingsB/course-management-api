@@ -1,5 +1,9 @@
 import express from "express";
-import { createCourse } from "../controllers/courseController.mjs";
+import {
+    createCourse,
+    getCourses,
+    getCourseById
+} from "../controllers/courseController.mjs";
 import {
     protect,
     authorize

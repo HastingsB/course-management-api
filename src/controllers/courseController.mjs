@@ -32,3 +32,41 @@ export const createCourse = async (req, res) => {
         });
     }
 };
+
+// Get all courses with teacher details
+export const getCourses = async (req, res) => {
+    try {
+
+        const courses = await Course.find()
+            .populate("teacher", "name email role");
+
+        res.status(200).json(courses);
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+// Get a specific course by ID with teacher detailsss
+export const getCourseById = async (req, res) => {
+    try {
+
+        const course = await Course.findById(req.params.id)
+            .populate("teacher", "name email role");
+
+        if (!course) {
+            return res.status(404).json({
+                message: "Course not found"
+            });
+        }
+
+        res.status(200).json(course);
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
