@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.mjs";
 
 // SIGNUP
+
 export const signup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -41,6 +42,7 @@ export const signup = async (req, res) => {
 
 
 // LOGIN
+
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
