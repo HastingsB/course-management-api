@@ -6,3 +6,12 @@ export const getProfile = async (req, res) => {
     });
 
 };
+
+export const adminDashboard = async (req, res) => {
+
+    res.status(200).json({
+        message: "Welcome Admin",
+        user: req.user
+    });
+
+};
