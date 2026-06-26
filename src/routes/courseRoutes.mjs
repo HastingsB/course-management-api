@@ -4,7 +4,8 @@ import {
     createCourse,
     getCourses,
     getCourseById,
-    updateCourse
+    updateCourse,
+    deleteCourse
 } from "../controllers/courseController.mjs";
 
 import {
@@ -14,6 +15,7 @@ import {
 
 const router = express.Router();
 
+// Routes for course management
 router.post(
     "/",
     protect,
@@ -21,6 +23,7 @@ router.post(
     createCourse
 );
 
+// Update routes
 router.put(
     "/:id",
     protect,
@@ -28,6 +31,15 @@ router.put(
     updateCourse
 );
 
+// Delete routes
+router.delete(
+    "/:id",
+    protect,
+    authorize("teacher", "admin"),
+    deleteCourse
+);
+
+// Get routes
 router.get("/", getCourses);
 
 router.get("/:id", getCourseById);
