@@ -1,9 +1,12 @@
 import express from "express";
+
 import {
     createCourse,
     getCourses,
-    getCourseById
+    getCourseById,
+    updateCourse
 } from "../controllers/courseController.mjs";
+
 import {
     protect,
     authorize
@@ -17,5 +20,16 @@ router.post(
     authorize("teacher", "admin"),
     createCourse
 );
+
+router.put(
+    "/:id",
+    protect,
+    authorize("teacher", "admin"),
+    updateCourse
+);
+
+router.get("/", getCourses);
+
+router.get("/:id", getCourseById);
 
 export default router;

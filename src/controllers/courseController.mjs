@@ -70,3 +70,43 @@ export const getCourseById = async (req, res) => {
         });
     }
 };
+
+// Update a course (only by the course owner or an admin)
+export const updateCourse = async (req, res) => {
+    try {
+        const { title, description } = req.body;
+
+        const course = await Course.findById(req.params.id);
+
+        if (!course) {
+            return res.status(404).json({
+                message: "Course not found"
+            });
+        }
+
+        // Only the course owner or an admin can update
+        if (
+            req.user.role !== "admin" &&
+            course.teacher.toString() !== req.user._id.toString()
+        ) {
+            return res.status(403).json({
+                message: "You are not allowed to update this course"
+            });
+        }
+
+        course.title = title || course.title;
+        course.description = description || course.description;
+
+        await course.save();
+
+        res.status(200).json({
+            message: "Course updated successfully",
+            course
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
