@@ -4,6 +4,8 @@ import connectDB from "./config/db.mjs";
 import authRoutes from "./routes/authRoutes.mjs";
 import userRoutes from "./routes/userRoutes.mjs";
 import courseRoutes from "./routes/courseRoutes.mjs";
+import errorHandler from "./middleware/errorMiddleware.mjs";
+import enrollmentRoutes from "./routes/enrollmentRoutes.mjs";
 
 dotenv.config();
 
@@ -19,9 +21,14 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/courses", courseRoutes);
 
+app.use("/api/enrollments", enrollmentRoutes);
+
 app.get("/", (req, res) => {
     res.send("Course Management API is running...");
 });
+
+// Error handling middlewares
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
